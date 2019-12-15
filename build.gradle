@@ -1,3 +1,5 @@
+import java.util.stream.Collectors
+
 buildscript {
     repositories {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
@@ -7,11 +9,7 @@ buildscript {
 
 plugins {
     id 'java'
-}
-
-repositories {
-    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-    maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+    id 'com.github.kt3k.coveralls' version '2.9.0'
 }
 
 group = 'lovecode'
@@ -20,3 +18,42 @@ sourceCompatibility = '1.8'
 
 "cp pre-push .git/hooks/pre-push".execute()
 "chmod 744 .git/hooks/pre-push".execute()
+
+allprojects {
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+    }
+    apply plugin: 'jacoco'
+}
+
+coveralls {
+    sourceDirs = subprojects.stream()
+            .map({ p -> "$p.projectDir/src/main/java"})
+            .collect(Collectors.toList())
+    jacocoReportPath 'build/reports/jacoco/jacocoRootTestReport/jacocoRootTestReport.xml'
+}
+
+task jacocoRootTestReport(type: JacocoReport) {
+    def all_classDirectories = []
+    def all_executionData = []
+    def all_sourceDirectories = []
+
+    subprojects.each { p ->
+        all_classDirectories.addAll(fileTree(dir: "$p.buildDir/classes/java/main", include: '**/**.class'))
+        all_sourceDirectories.add("$p.projectDir/src/main/java")
+        all_executionData.addAll(fileTree(dir: p.buildDir.toString(), include: "**/*.exec").asList())
+    }
+
+    sourceDirectories.from(all_sourceDirectories.toArray())
+    executionData all_executionData
+    classDirectories.from all_classDirectories
+
+    reports {
+        xml.enabled true
+        html.enabled true
+        csv.enabled false
+    }
+}
+
+tasks.coveralls.dependsOn jacocoRootTestReport
