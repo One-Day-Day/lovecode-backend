@@ -8,3 +8,6 @@ install:
 script:
   - jdk_switcher use openjdk8
   - ./gradlew check
+
+dist: trusty
+
