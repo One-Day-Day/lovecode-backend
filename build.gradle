@@ -1,0 +1,19 @@
+buildscript {
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+    }
+}
+
+plugins {
+    id 'java'
+}
+
+repositories {
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+}
+
+group = 'lovecode'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
