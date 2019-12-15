@@ -1,7 +1,10 @@
 lnaguage: java
 
-jdk:
-  - oraclejdk8
+jdk: oraclejdk8
+
+install:
+  - ./gradlew assemble
 
 script:
+  - jdk_switcher use oraclejdk8
   - ./gradlew check
