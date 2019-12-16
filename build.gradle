@@ -1,5 +1,3 @@
-import java.util.stream.Collectors
-
 buildscript {
     repositories {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
@@ -9,7 +7,6 @@ buildscript {
 
 plugins {
     id 'java'
-    id 'com.github.kt3k.coveralls' version '2.9.0'
 }
 
 group = 'lovecode'
@@ -25,13 +22,6 @@ allprojects {
         maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
     }
     apply plugin: 'jacoco'
-}
-
-coveralls {
-    sourceDirs = subprojects.stream()
-            .map({ p -> "$p.projectDir/src/main/java"})
-            .collect(Collectors.toList())
-    jacocoReportPath 'build/reports/jacoco/jacocoRootTestReport/jacocoRootTestReport.xml'
 }
 
 task jacocoRootTestReport(type: JacocoReport) {
@@ -60,5 +50,3 @@ tasks.withType(Test) {
     scanForTestClasses = false
     include "**/*Test.class"
 }
-
-tasks.coveralls.dependsOn jacocoRootTestReport

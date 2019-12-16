@@ -7,6 +7,6 @@ install:
 
 script:
   - jdk_switcher use openjdk8
-  - ./gradlew test coveralls
+  - ./gradlew check
 
 dist: trusty
