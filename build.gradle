@@ -56,4 +56,9 @@ task jacocoRootTestReport(type: JacocoReport) {
     }
 }
 
+tasks.withType(Test) {
+    scanForTestClasses = false
+    include "**/*Test.class"
+}
+
 tasks.coveralls.dependsOn jacocoRootTestReport
