@@ -1,0 +1,7 @@
+spring:
+  boot:
+    mariadb4j:
+      databaseName: test
+      port: 7777
+  datasource:
+    driver-class-name: org.mariadb.jdbc.Driver
