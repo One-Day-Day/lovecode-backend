@@ -3,6 +3,7 @@ package com.lovecode.problem.service;
 import com.lovecode.problem.domain.Problem;
 import com.lovecode.problem.dto.PageableResponse;
 import com.lovecode.problem.dto.SummaryProblem;
+import com.lovecode.problem.exception.ObjectNotFoundException;
 import com.lovecode.problem.repository.ProblemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -33,5 +34,10 @@ public class ProblemService {
                 .totalNumbers((int) page.getTotalElements())
                 .totalPages(page.getTotalPages())
                 .build();
+    }
+
+    public Problem getProblemById(Long id) {
+        return problemRepository.findById(id)
+                .orElseThrow(() -> new ObjectNotFoundException("not found problem, id = " + id));
     }
 }

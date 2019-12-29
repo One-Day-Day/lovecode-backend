@@ -1,11 +1,13 @@
 package com.lovecode.problem.web;
 
+import com.lovecode.problem.domain.Problem;
 import com.lovecode.problem.dto.PageableResponse;
 import com.lovecode.problem.dto.SummaryProblem;
 import com.lovecode.problem.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,5 +22,11 @@ public class ProblemController {
     @ResponseBody
     public PageableResponse<SummaryProblem> getAllProblems(@RequestParam int page, @RequestParam int size) {
         return problemService.getAllProblems(page, size);
+    }
+
+    @GetMapping("/{id}")
+    @ResponseBody
+    public Problem getOneProblem(@PathVariable Long id) {
+        return problemService.getProblemById(id);
     }
 }

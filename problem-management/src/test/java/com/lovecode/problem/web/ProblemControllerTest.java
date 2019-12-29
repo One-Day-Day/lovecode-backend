@@ -1,6 +1,6 @@
 package com.lovecode.problem.web;
 
-import com.lovecode.problem.ControllerBaseTest;
+import com.lovecode.problem.BaseTest;
 import com.lovecode.problem.domain.Problem;
 import com.lovecode.problem.repository.ProblemRepository;
 import org.junit.jupiter.api.Test;
@@ -13,7 +13,7 @@ import java.util.stream.IntStream;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class ProblemControllerTest extends ControllerBaseTest {
+class ProblemControllerTest extends BaseTest {
     @Autowired
     private ProblemRepository problemRepository;
 
@@ -40,6 +40,23 @@ class ProblemControllerTest extends ControllerBaseTest {
                 .expect(jsonPath("$.totalNumbers").value(3))
                 .expect(jsonPath("$.totalPages").value(2))
                 .expect(jsonPath("$.data[0].title").value("title 0"));
+    }
+
+    @Test
+    void should_return_the_right_problem_when_get_an_existing_problem() {
+        prepareProblems();
+        given().when()
+                .get("/api/problems/1000")
+                .then()
+                .expect(status().isOk())
+                .expect(jsonPath("$.title").value("title 0"))
+                .expect(jsonPath("$.description").value("description"))
+                .expect(jsonPath("$.inputFormatDescription").value("input description"))
+                .expect(jsonPath("$.outputFormatDescription").value("output description"))
+                .expect(jsonPath("$.sampleInput").value("sample input"))
+                .expect(jsonPath("$.sampleOutput").value("sample output"))
+                .expect(jsonPath("$.memoryLimit").value(1024))
+                .expect(jsonPath("$.timeLimit").value(1000));
     }
 
     private void prepareProblems() {

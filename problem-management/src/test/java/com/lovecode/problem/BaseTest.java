@@ -14,7 +14,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 @SpringBootTest
 @ActiveProfiles(profiles = "test")
-public class ControllerBaseTest {
+public class BaseTest {
     @Autowired
     private ProblemRepository problemRepository;
 
