@@ -21,7 +21,7 @@ public class SummaryProblem {
                 .id(problem.getId())
                 .memoryLimit(problem.getMemoryLimit())
                 .timeLimit(problem.getTimeLimit())
-                .title(problem.getTitle())
+                .title(problem.getName())
                 .build();
     }
 }

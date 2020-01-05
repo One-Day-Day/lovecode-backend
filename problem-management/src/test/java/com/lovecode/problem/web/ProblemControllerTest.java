@@ -50,7 +50,7 @@ class ProblemControllerTest extends BaseTest {
                 .get("/api/problems/1000")
                 .then()
                 .expect(status().isOk())
-                .expect(jsonPath("$.title").value("title 0"))
+                .expect(jsonPath("$.name").value("title 0"))
                 .expect(jsonPath("$.description").value("description"))
                 .expect(jsonPath("$.inputDescription").value("input description"))
                 .expect(jsonPath("$.outputDescription").value("output description"))
@@ -64,7 +64,7 @@ class ProblemControllerTest extends BaseTest {
     @Test
     void should_create_problem_successfully() {
         CreateProblemRequest request = CreateProblemRequest.builder()
-                .title("name")
+                .name("name")
                 .description("description")
                 .hint("hint")
                 .inputDescription("input description")
@@ -82,7 +82,7 @@ class ProblemControllerTest extends BaseTest {
                 .then()
                 .expect(status().isCreated())
                 .expect(jsonPath("$.id").isNumber())
-                .expect(jsonPath("$.title").value("name"))
+                .expect(jsonPath("$.name").value("name"))
                 .expect(jsonPath("$.description").value("description"))
                 .expect(jsonPath("$.hint").value("hint"))
                 .expect(jsonPath("$.inputDescription").value("input description"))
@@ -97,7 +97,7 @@ class ProblemControllerTest extends BaseTest {
         List<Problem> problems = IntStream.range(0, 3)
                 .mapToObj(i -> {
                     return Problem.builder()
-                            .title("title " + i)
+                            .name("title " + i)
                             .description("description")
                             .hint("hint")
                             .inputDescription("input description")

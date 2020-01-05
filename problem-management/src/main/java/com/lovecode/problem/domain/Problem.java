@@ -26,7 +26,7 @@ public class Problem {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String title;
+    private String name;
     private String description;
     private String hint;
     private String inputDescription;
@@ -45,7 +45,7 @@ public class Problem {
 
     public static Problem from(CreateProblemRequest request) {
         return Problem.builder()
-                .title(request.getTitle())
+                .name(request.getName())
                 .description(request.getDescription())
                 .hint(request.getHint())
                 .inputDescription(request.getInputDescription())
