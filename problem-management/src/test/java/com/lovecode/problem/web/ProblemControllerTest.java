@@ -56,7 +56,8 @@ class ProblemControllerTest extends BaseTest {
                 .expect(jsonPath("$.sampleInput").value("sample input"))
                 .expect(jsonPath("$.sampleOutput").value("sample output"))
                 .expect(jsonPath("$.memoryLimit").value(1024))
-                .expect(jsonPath("$.timeLimit").value(1000));
+                .expect(jsonPath("$.timeLimit").value(1000))
+                .expect(jsonPath("$.hint").value("hint"));
     }
 
     private void prepareProblems() {
@@ -65,6 +66,7 @@ class ProblemControllerTest extends BaseTest {
                     return Problem.builder()
                             .title("title " + i)
                             .description("description")
+                            .hint("hint")
                             .inputDescription("input description")
                             .outputDescription("output description")
                             .sampleInput("sample input")
