@@ -1,21 +1,8 @@
-## 服务配置
 server:
-  port: 8083
-  tomcat:
-    uri-encoding: utf-8
+  port: 8081
 spring:
-  http:
-    encoding:
-      force: true
-      charset: UTF-8
-      enabled: true
-  jap:
-    hibernate:
-      ddl-auto: update
-    show: true
-  resources:
-    add-mappings: true
-  mvc:
-    throw-exception-if-no-handler-found: true
-  profiles:
-    active: test
+  datasource:
+    url: jdbc:mysql://${DB_HOST:localhost}:${DB_PORT:3306}/${DB_DATABASE:lovecode_user}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
