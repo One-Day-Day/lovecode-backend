@@ -1,6 +1,6 @@
 package com.lovecode.problem;
 
-import com.lovecode.problem.repository.ProblemRepository;
+import com.lovecode.problem.domain.repository.ProblemRepository;
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import io.restassured.module.mockmvc.specification.MockMvcRequestSpecification;

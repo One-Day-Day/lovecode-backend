@@ -1,4 +1,4 @@
-package com.lovecode.problem.repository;
+package com.lovecode.problem.domain.repository;
 
 import com.lovecode.problem.domain.Problem;
 import org.springframework.data.jpa.repository.JpaRepository;

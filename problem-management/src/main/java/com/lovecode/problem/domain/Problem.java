@@ -27,8 +27,8 @@ public class Problem {
     private Long id;
     private String title;
     private String description;
-    private String inputFormatDescription;
-    private String outputFormatDescription;
+    private String inputDescription;
+    private String outputDescription;
     private String sampleInput;
     private String sampleOutput;
 

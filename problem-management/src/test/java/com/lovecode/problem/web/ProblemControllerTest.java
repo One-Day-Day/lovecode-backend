@@ -2,7 +2,7 @@ package com.lovecode.problem.web;
 
 import com.lovecode.problem.BaseTest;
 import com.lovecode.problem.domain.Problem;
-import com.lovecode.problem.repository.ProblemRepository;
+import com.lovecode.problem.domain.repository.ProblemRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -51,8 +51,8 @@ class ProblemControllerTest extends BaseTest {
                 .expect(status().isOk())
                 .expect(jsonPath("$.title").value("title 0"))
                 .expect(jsonPath("$.description").value("description"))
-                .expect(jsonPath("$.inputFormatDescription").value("input description"))
-                .expect(jsonPath("$.outputFormatDescription").value("output description"))
+                .expect(jsonPath("$.inputDescription").value("input description"))
+                .expect(jsonPath("$.outputDescription").value("output description"))
                 .expect(jsonPath("$.sampleInput").value("sample input"))
                 .expect(jsonPath("$.sampleOutput").value("sample output"))
                 .expect(jsonPath("$.memoryLimit").value(1024))
@@ -65,8 +65,8 @@ class ProblemControllerTest extends BaseTest {
                     return Problem.builder()
                             .title("title " + i)
                             .description("description")
-                            .inputFormatDescription("input description")
-                            .outputFormatDescription("output description")
+                            .inputDescription("input description")
+                            .outputDescription("output description")
                             .sampleInput("sample input")
                             .sampleOutput("sample output")
                             .timeLimit(1000L)

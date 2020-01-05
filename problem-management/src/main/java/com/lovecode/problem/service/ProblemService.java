@@ -4,7 +4,7 @@ import com.lovecode.problem.domain.Problem;
 import com.lovecode.problem.dto.PageableResponse;
 import com.lovecode.problem.dto.SummaryProblem;
 import com.lovecode.problem.exception.ObjectNotFoundException;
-import com.lovecode.problem.repository.ProblemRepository;
+import com.lovecode.problem.domain.repository.ProblemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
