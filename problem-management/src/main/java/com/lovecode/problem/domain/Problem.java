@@ -1,5 +1,6 @@
 package com.lovecode.problem.domain;
 
+import com.lovecode.problem.dto.CreateProblemRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -41,4 +42,18 @@ public class Problem {
 
     @LastModifiedDate
     private Date updatedAt;
+
+    public static Problem from(CreateProblemRequest request) {
+        return Problem.builder()
+                .title(request.getTitle())
+                .description(request.getDescription())
+                .hint(request.getHint())
+                .inputDescription(request.getInputDescription())
+                .outputDescription(request.getOutputDescription())
+                .sampleInput(request.getSampleInput())
+                .sampleOutput(request.getSampleOutput())
+                .timeLimit(request.getTimeLimit())
+                .memoryLimit(request.getMemoryLimit())
+                .build();
+    }
 }

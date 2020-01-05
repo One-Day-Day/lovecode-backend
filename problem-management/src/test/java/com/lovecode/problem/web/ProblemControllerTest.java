@@ -3,6 +3,7 @@ package com.lovecode.problem.web;
 import com.lovecode.problem.BaseTest;
 import com.lovecode.problem.domain.Problem;
 import com.lovecode.problem.domain.repository.ProblemRepository;
+import com.lovecode.problem.dto.CreateProblemRequest;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -58,6 +59,38 @@ class ProblemControllerTest extends BaseTest {
                 .expect(jsonPath("$.memoryLimit").value(1024))
                 .expect(jsonPath("$.timeLimit").value(1000))
                 .expect(jsonPath("$.hint").value("hint"));
+    }
+
+    @Test
+    void should_create_problem_successfully() {
+        CreateProblemRequest request = CreateProblemRequest.builder()
+                .title("name")
+                .description("description")
+                .hint("hint")
+                .inputDescription("input description")
+                .outputDescription("output description")
+                .memoryLimit(1024L)
+                .timeLimit(1024L)
+                .sampleInput("sample input")
+                .sampleOutput("sample output")
+                .build();
+
+        given()
+                .body(request)
+                .when()
+                .post("/api/problems")
+                .then()
+                .expect(status().isCreated())
+                .expect(jsonPath("$.id").isNumber())
+                .expect(jsonPath("$.title").value("name"))
+                .expect(jsonPath("$.description").value("description"))
+                .expect(jsonPath("$.hint").value("hint"))
+                .expect(jsonPath("$.inputDescription").value("input description"))
+                .expect(jsonPath("$.outputDescription").value("output description"))
+                .expect(jsonPath("$.timeLimit").value(1024))
+                .expect(jsonPath("$.memoryLimit").value(1024))
+                .expect(jsonPath("$.sampleInput").value("sample input"))
+                .expect(jsonPath("$.sampleOutput").value("sample output"));
     }
 
     private void prepareProblems() {

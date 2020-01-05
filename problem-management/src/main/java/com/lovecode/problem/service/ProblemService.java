@@ -1,6 +1,7 @@
 package com.lovecode.problem.service;
 
 import com.lovecode.problem.domain.Problem;
+import com.lovecode.problem.dto.CreateProblemRequest;
 import com.lovecode.problem.dto.PageableResponse;
 import com.lovecode.problem.dto.SummaryProblem;
 import com.lovecode.problem.exception.ObjectNotFoundException;
@@ -39,5 +40,9 @@ public class ProblemService {
     public Problem getProblemById(Long id) {
         return problemRepository.findById(id)
                 .orElseThrow(() -> new ObjectNotFoundException("not found problem, id = " + id));
+    }
+
+    public Problem createProblem(CreateProblemRequest request) {
+        return problemRepository.save(Problem.from(request));
     }
 }
