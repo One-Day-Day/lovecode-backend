@@ -2,10 +2,8 @@ package cc.lovecode.web;
 
 import cc.lovecode.BaseTest;
 import cc.lovecode.domain.entity.Problem;
-import cc.lovecode.domain.repository.ProblemRepository;
 import cc.lovecode.dto.CreateProblemRequest;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,9 +13,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class ProblemControllerTest extends BaseTest {
-    @Autowired
-    private ProblemRepository problemRepository;
-
     @Test
     void should_get_fist_page_of_summary_problems() {
         prepareProblems();

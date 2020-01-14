@@ -43,6 +43,7 @@ dependencies {
     implementation 'org.flywaydb:flyway-core'
     implementation 'ch.vorburger.mariaDB4j:mariaDB4j:2.4.0'
     implementation 'org.mariadb.jdbc:mariadb-java-client:2.2.5'
+    implementation 'com.auth0:java-jwt:3.9.0'
     runtimeOnly 'mysql:mysql-connector-java'
     testCompile('io.rest-assured:spring-mock-mvc:3.2.0')
     testImplementation('org.springframework.boot:spring-boot-starter-test') {

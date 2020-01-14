@@ -1,6 +1,8 @@
 package cc.lovecode;
 
+import cc.lovecode.domain.entity.User;
 import cc.lovecode.domain.repository.ProblemRepository;
+import cc.lovecode.domain.repository.UserRepository;
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import io.restassured.module.mockmvc.specification.MockMvcRequestSpecification;
@@ -16,12 +18,19 @@ import org.springframework.web.context.WebApplicationContext;
 @ActiveProfiles(profiles = "test")
 public class BaseTest {
     @Autowired
-    private ProblemRepository problemRepository;
+    protected ProblemRepository problemRepository;
+
+    @Autowired
+    protected UserRepository userRepository;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
 
     protected MockMvc mockMvc;
+
+    protected User defaultUser;
+    protected final String defaultUsername = "TEST";
+    protected final String defaultPassword = "TEST";
 
     @BeforeEach
     void setUp() {
@@ -30,10 +39,17 @@ public class BaseTest {
         RestAssuredMockMvc.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssuredMockMvc.mockMvc(mockMvc);
         truncate();
+        defaultUser = User
+                .builder()
+                .username(defaultUsername)
+                .password(defaultPassword)
+                .build();
+        userRepository.save(defaultUser);
     }
 
     private void truncate() {
         problemRepository.deleteAll();
+        userRepository.deleteAll();
     }
 
     public MockMvcRequestSpecification given() {
