@@ -1,7 +1,2 @@
 rootProject.name = 'lovecode-backend'
-include 'user-management'
-include 'problem-management'
-include 'contest-management'
-include 'solution-management'
-include 'api-gateway'
 

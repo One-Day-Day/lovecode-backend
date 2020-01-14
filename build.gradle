@@ -7,6 +7,27 @@ buildscript {
 
 plugins {
     id 'java'
+    id 'org.springframework.boot' version '2.2.2.RELEASE'
+    id 'io.spring.dependency-management' version '1.0.8.RELEASE'
+    id "io.franzbecker.gradle-lombok" version "3.1.0"
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    repositories {
+        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+    }
+    mavenCentral()
+}
+
+lombok {
+    version = '1.18.8'
 }
 
 group = 'lovecode'
@@ -16,37 +37,15 @@ sourceCompatibility = '1.8'
 "cp pre-push .git/hooks/pre-push".execute()
 "chmod 744 .git/hooks/pre-push".execute()
 
-allprojects {
-    repositories {
-        maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
-        maven { url 'http://maven.aliyun.com/nexus/content/repositories/jcenter' }
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.flywaydb:flyway-core'
+    implementation 'ch.vorburger.mariaDB4j:mariaDB4j:2.4.0'
+    implementation 'org.mariadb.jdbc:mariadb-java-client:2.2.5'
+    runtimeOnly 'mysql:mysql-connector-java'
+    testCompile('io.rest-assured:spring-mock-mvc:3.2.0')
+    testImplementation('org.springframework.boot:spring-boot-starter-test') {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
-    apply plugin: 'jacoco'
-}
-
-task jacocoRootTestReport(type: JacocoReport) {
-    def all_classDirectories = []
-    def all_executionData = []
-    def all_sourceDirectories = []
-
-    subprojects.each { p ->
-        all_classDirectories.addAll(fileTree(dir: "$p.buildDir/classes/java/main", include: '**/**.class'))
-        all_sourceDirectories.add("$p.projectDir/src/main/java")
-        all_executionData.addAll(fileTree(dir: p.buildDir.toString(), include: "**/*.exec").asList())
-    }
-
-    sourceDirectories.from(all_sourceDirectories.toArray())
-    executionData all_executionData
-    classDirectories.from all_classDirectories
-
-    reports {
-        xml.enabled true
-        html.enabled true
-        csv.enabled false
-    }
-}
-
-tasks.withType(Test) {
-    scanForTestClasses = false
-    include "**/*Test.class"
 }
