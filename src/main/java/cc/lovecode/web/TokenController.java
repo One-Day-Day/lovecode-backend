@@ -1,9 +1,11 @@
 package cc.lovecode.web;
 
+import cc.lovecode.dto.ErrorResult;
 import cc.lovecode.dto.LoginRequest;
-import cc.lovecode.dto.LoginResponse;
+import cc.lovecode.exception.IncorrectUsernameOrPasswordException;
 import cc.lovecode.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +18,11 @@ public class TokenController {
     private TokenService tokenService;
 
     @PostMapping
-    public LoginResponse login(@RequestBody LoginRequest request) {
-        return tokenService.login(request);
+    public ResponseEntity login(@RequestBody LoginRequest request) {
+        try {
+            return ResponseEntity.ok(tokenService.login(request));
+        } catch (IncorrectUsernameOrPasswordException ex) {
+            return ResponseEntity.badRequest().body(new ErrorResult("LOGIN_UNSUCCESSFULLY", ex.getMessage()));
+        }
     }
 }
