@@ -1,8 +1,8 @@
 package cc.lovecode.web;
 
 import cc.lovecode.domain.entity.Problem;
-import cc.lovecode.dto.CreateProblemRequest;
-import cc.lovecode.dto.PageableResponse;
+import cc.lovecode.dto.request.CreateProblemRequest;
+import cc.lovecode.dto.response.PageableResponse;
 import cc.lovecode.dto.SummaryProblem;
 import cc.lovecode.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;

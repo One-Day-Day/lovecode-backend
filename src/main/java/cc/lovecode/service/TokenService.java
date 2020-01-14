@@ -2,8 +2,8 @@ package cc.lovecode.service;
 
 import cc.lovecode.domain.entity.User;
 import cc.lovecode.domain.repository.UserRepository;
-import cc.lovecode.dto.LoginRequest;
-import cc.lovecode.dto.LoginResponse;
+import cc.lovecode.dto.request.LoginRequest;
+import cc.lovecode.dto.response.LoginResponse;
 import cc.lovecode.exception.IncorrectUsernameOrPasswordException;
 import cc.lovecode.util.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;

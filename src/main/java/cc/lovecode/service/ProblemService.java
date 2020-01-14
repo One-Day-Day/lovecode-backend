@@ -1,7 +1,7 @@
 package cc.lovecode.service;
 
-import cc.lovecode.dto.CreateProblemRequest;
-import cc.lovecode.dto.PageableResponse;
+import cc.lovecode.dto.request.CreateProblemRequest;
+import cc.lovecode.dto.response.PageableResponse;
 import cc.lovecode.dto.SummaryProblem;
 import cc.lovecode.exception.ObjectNotFoundException;
 import cc.lovecode.domain.entity.Problem;

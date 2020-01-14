@@ -1,4 +1,4 @@
-package cc.lovecode.dto;
+package cc.lovecode.dto.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,6 +1,6 @@
 package cc.lovecode.domain.entity;
 
-import cc.lovecode.dto.CreateProblemRequest;
+import cc.lovecode.dto.request.CreateProblemRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

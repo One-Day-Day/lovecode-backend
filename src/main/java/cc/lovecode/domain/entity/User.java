@@ -1,6 +1,6 @@
 package cc.lovecode.domain.entity;
 
-import cc.lovecode.dto.CreateUserRequest;
+import cc.lovecode.dto.request.CreateUserRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

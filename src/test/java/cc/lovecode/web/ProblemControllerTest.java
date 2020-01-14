@@ -2,7 +2,7 @@ package cc.lovecode.web;
 
 import cc.lovecode.BaseTest;
 import cc.lovecode.domain.entity.Problem;
-import cc.lovecode.dto.CreateProblemRequest;
+import cc.lovecode.dto.request.CreateProblemRequest;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

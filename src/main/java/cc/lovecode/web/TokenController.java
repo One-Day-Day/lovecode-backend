@@ -1,7 +1,7 @@
 package cc.lovecode.web;
 
 import cc.lovecode.dto.ErrorResult;
-import cc.lovecode.dto.LoginRequest;
+import cc.lovecode.dto.request.LoginRequest;
 import cc.lovecode.exception.IncorrectUsernameOrPasswordException;
 import cc.lovecode.service.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;

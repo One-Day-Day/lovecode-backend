@@ -1,6 +1,6 @@
 package cc.lovecode.service;
 
-import cc.lovecode.dto.CreateUserRequest;
+import cc.lovecode.dto.request.CreateUserRequest;
 import cc.lovecode.domain.entity.User;
 import cc.lovecode.domain.repository.UserRepository;
 import lombok.NoArgsConstructor;

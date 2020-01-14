@@ -1,7 +1,7 @@
 package cc.lovecode.web;
 
 import cc.lovecode.BaseTest;
-import cc.lovecode.dto.LoginRequest;
+import cc.lovecode.dto.request.LoginRequest;
 import org.junit.jupiter.api.Test;
 
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
