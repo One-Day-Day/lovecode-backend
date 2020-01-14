@@ -1,8 +1,10 @@
 package cc.lovecode.exception;
 
-public class IncorrectUsernameOrPasswordException extends RuntimeException {
+import cc.lovecode.enums.ErrorCode;
+
+public class IncorrectUsernameOrPasswordException extends APIException {
     @Override
-    public String getMessage() {
-        return "账号或密码错误";
+    public ErrorCode getCode() {
+        return ErrorCode.LOGIN_UNSUCCESSFULLY;
     }
 }
