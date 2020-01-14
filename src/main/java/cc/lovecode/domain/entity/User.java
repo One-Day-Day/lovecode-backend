@@ -12,9 +12,6 @@ import org.springframework.util.DigestUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import java.util.Date;
 
 @Data
@@ -23,11 +20,7 @@ import java.util.Date;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-public class User {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class User extends BaseEntity {
     private String username;
 
     private String password;
