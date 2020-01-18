@@ -4,6 +4,7 @@ import cc.lovecode.domain.entity.Problem;
 import cc.lovecode.dto.request.CreateProblemRequest;
 import cc.lovecode.dto.response.PageableResponse;
 import cc.lovecode.dto.SummaryProblem;
+import cc.lovecode.jwt.JWTUser;
 import cc.lovecode.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,7 +39,7 @@ public class ProblemController {
     @PostMapping
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
-    public Problem createProblem(@RequestBody CreateProblemRequest request) {
-        return problemService.createProblem(request);
+    public Problem createProblem(@RequestBody CreateProblemRequest request, JWTUser jwtUser) {
+        return problemService.createProblem(request, jwtUser);
     }
 }

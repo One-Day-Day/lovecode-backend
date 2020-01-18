@@ -3,6 +3,8 @@ package cc.lovecode;
 import cc.lovecode.domain.entity.User;
 import cc.lovecode.domain.repository.ProblemRepository;
 import cc.lovecode.domain.repository.UserRepository;
+import cc.lovecode.jwt.JWTUserResolver;
+import cc.lovecode.jwt.JWTUtils;
 import io.restassured.http.ContentType;
 import io.restassured.module.mockmvc.RestAssuredMockMvc;
 import io.restassured.module.mockmvc.specification.MockMvcRequestSpecification;
@@ -55,7 +57,12 @@ public class BaseTest {
     public MockMvcRequestSpecification given() {
         return RestAssuredMockMvc
                 .given()
+                .header(JWTUserResolver.JWT_TOKEN_HEADER_NAME, getAuthorization())
                 .header("Accept", ContentType.JSON.withCharset("UTF-8"))
                 .header("Content-Type", ContentType.JSON.withCharset("UTF-8"));
+    }
+
+    private String getAuthorization() {
+        return JWTUserResolver.PREFIX + JWTUtils.generateToken(defaultUser);
     }
 }

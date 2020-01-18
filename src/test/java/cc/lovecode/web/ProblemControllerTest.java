@@ -101,6 +101,7 @@ class ProblemControllerTest extends BaseTest {
                             .sampleOutput("sample output")
                             .timeLimit(1000L)
                             .memoryLimit(1024L)
+                            .owner(defaultUser)
                             .build();
                 })
                 .collect(Collectors.toList());

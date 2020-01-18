@@ -1,11 +1,15 @@
 package cc.lovecode.service;
 
+import cc.lovecode.domain.entity.Problem;
+import cc.lovecode.domain.entity.User;
+import cc.lovecode.domain.repository.ProblemRepository;
+import cc.lovecode.domain.repository.UserRepository;
+import cc.lovecode.dto.SummaryProblem;
 import cc.lovecode.dto.request.CreateProblemRequest;
 import cc.lovecode.dto.response.PageableResponse;
-import cc.lovecode.dto.SummaryProblem;
 import cc.lovecode.exception.ObjectNotFoundException;
-import cc.lovecode.domain.entity.Problem;
-import cc.lovecode.domain.repository.ProblemRepository;
+import cc.lovecode.exception.UnauthorizedAccessException;
+import cc.lovecode.jwt.JWTUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -20,6 +24,9 @@ import java.util.stream.Collectors;
 public class ProblemService {
     @Autowired
     private ProblemRepository problemRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     public PageableResponse<SummaryProblem> getAllProblems(int currentPage, int pageSize) {
         Assert.isTrue(currentPage >= 0, "current page must be equals or greater than zero");
@@ -42,7 +49,11 @@ public class ProblemService {
                 .orElseThrow(() -> new ObjectNotFoundException("not found problem, id = " + id));
     }
 
-    public Problem createProblem(CreateProblemRequest request) {
-        return problemRepository.save(Problem.from(request));
+    public Problem createProblem(CreateProblemRequest request, JWTUser jwtUser) {
+        Problem problem = Problem.from(request);
+        User owner = userRepository.findById(jwtUser.getId())
+                .orElseThrow(UnauthorizedAccessException::new);
+        problem.setOwner(owner);
+        return problemRepository.save(problem);
     }
 }

@@ -5,7 +5,7 @@ import cc.lovecode.domain.repository.UserRepository;
 import cc.lovecode.dto.request.LoginRequest;
 import cc.lovecode.dto.response.LoginResponse;
 import cc.lovecode.exception.IncorrectUsernameOrPasswordException;
-import cc.lovecode.util.JWTUtils;
+import cc.lovecode.jwt.JWTUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

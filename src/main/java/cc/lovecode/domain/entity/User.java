@@ -5,14 +5,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.util.DigestUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
-import java.util.Date;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Data
 @Builder
@@ -27,11 +26,8 @@ public class User extends BaseEntity {
 
     private String phoneNumber;
 
-    @CreatedDate
-    private Date createdAt;
-
-    @LastModifiedDate
-    private Date updatedAt;
+    @OneToMany(mappedBy = "owner")
+    private List<Problem> problems;
 
     public static User from(CreateUserRequest request) {
         return User.builder()
