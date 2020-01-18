@@ -13,7 +13,7 @@ public class TokenControllerTest extends BaseTest {
     void should_return_a_token_when_login_succeed() {
         given()
                 .body(buildLoginRequest())
-                .post("/tokens")
+                .post("/api/tokens")
                 .then()
                 .expect(status().isOk())
                 .expect(jsonPath("$.token").hasJsonPath());
@@ -27,7 +27,7 @@ public class TokenControllerTest extends BaseTest {
     void should_return_incorrect_username_or_password_message_and_with_400_status_code_when_login_failed() {
         given()
                 .body(new LoginRequest("incorrect user", "incorrect pwd"))
-                .post("/tokens")
+                .post("/api/tokens")
                 .then()
                 .expect(status().isBadRequest())
                 .expect(jsonPath("$.code").value("LOGIN_UNSUCCESSFULLY"))
