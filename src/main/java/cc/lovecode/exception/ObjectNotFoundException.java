@@ -1,11 +1,21 @@
 package cc.lovecode.exception;
 
-public class ObjectNotFoundException extends RuntimeException {
-    public ObjectNotFoundException(String message) {
-        super(message);
+import cc.lovecode.enums.ErrorCode;
+
+public class ObjectNotFoundException extends APIException {
+    private ErrorCode errorCode;
+
+    public ObjectNotFoundException(ErrorCode errorCode) {
+        this.errorCode = errorCode;
     }
 
-    public ObjectNotFoundException(String message, Throwable cause) {
-        super(message, cause);
+    @Override
+    public String getMessage() {
+        return errorCode.getMessage();
+    }
+
+    @Override
+    public ErrorCode getCode() {
+        return null;
     }
 }

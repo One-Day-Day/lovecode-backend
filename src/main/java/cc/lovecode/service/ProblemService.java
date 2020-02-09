@@ -7,6 +7,7 @@ import cc.lovecode.domain.repository.UserRepository;
 import cc.lovecode.dto.SummaryProblem;
 import cc.lovecode.dto.request.CreateProblemRequest;
 import cc.lovecode.dto.response.PageableResponse;
+import cc.lovecode.enums.ErrorCode;
 import cc.lovecode.exception.ObjectNotFoundException;
 import cc.lovecode.exception.UnauthorizedAccessException;
 import cc.lovecode.jwt.JWTUser;
@@ -46,7 +47,7 @@ public class ProblemService {
 
     public Problem getProblemById(Long id) {
         return problemRepository.findById(id)
-                .orElseThrow(() -> new ObjectNotFoundException("not found problem, id = " + id));
+                .orElseThrow(() -> new ObjectNotFoundException(ErrorCode.PROBLEM_NOT_FOUND));
     }
 
     public Problem createProblem(CreateProblemRequest request, JWTUser jwtUser) {

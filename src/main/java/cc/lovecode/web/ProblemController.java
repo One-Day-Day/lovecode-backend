@@ -4,6 +4,7 @@ import cc.lovecode.domain.entity.Problem;
 import cc.lovecode.dto.request.CreateProblemRequest;
 import cc.lovecode.dto.response.PageableResponse;
 import cc.lovecode.dto.SummaryProblem;
+import cc.lovecode.enums.Role;
 import cc.lovecode.jwt.JWTUser;
 import cc.lovecode.service.ProblemService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,7 @@ public class ProblemController {
     @ResponseBody
     @ResponseStatus(HttpStatus.CREATED)
     public Problem createProblem(@RequestBody CreateProblemRequest request, JWTUser jwtUser) {
+        jwtUser.validateRoles(Role.SUPER_ADMIN);
         return problemService.createProblem(request, jwtUser);
     }
 }
