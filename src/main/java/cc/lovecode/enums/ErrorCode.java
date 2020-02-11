@@ -9,7 +9,8 @@ public enum ErrorCode {
     DUPLICATED_USERNAME(HttpStatus.BAD_REQUEST, "用户名已使用"),
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, "用户不存在"),
     USER_NOT_ACTIVE(HttpStatus.FORBIDDEN, "用户已禁用"),
-    PROBLEM_NOT_FOUND(HttpStatus.NOT_FOUND, "问题不存在");
+    PROBLEM_NOT_FOUND(HttpStatus.NOT_FOUND, "问题不存在"),
+    FILE_UPLOAD_UNSUCCESSFULLY(HttpStatus.BAD_REQUEST, "文件上传失败");
 
     private String message;
     private HttpStatus status;
