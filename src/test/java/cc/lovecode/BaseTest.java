@@ -45,6 +45,7 @@ public class BaseTest {
                 .builder()
                 .username(defaultUsername)
                 .password(defaultPassword)
+                .active(true)
                 .build();
         userRepository.save(defaultUser);
     }
