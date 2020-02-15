@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 @Data
 @Builder
@@ -18,6 +19,7 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @Entity
 @EntityListeners(AuditingEntityListener.class)
+@Table(name = "testcase")
 public class TestCase extends BaseEntity {
     private String inputFileId;
 

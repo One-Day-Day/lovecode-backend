@@ -1,8 +1,10 @@
 package cc.lovecode;
 
 import cc.lovecode.domain.entity.User;
+import cc.lovecode.domain.entity.UserRole;
 import cc.lovecode.domain.repository.ProblemRepository;
 import cc.lovecode.domain.repository.UserRepository;
+import cc.lovecode.enums.Role;
 import cc.lovecode.jwt.JWTUserResolver;
 import cc.lovecode.jwt.JWTUtils;
 import io.restassured.http.ContentType;
@@ -14,7 +16,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.DigestUtils;
 import org.springframework.web.context.WebApplicationContext;
+
+import java.util.Arrays;
 
 @SpringBootTest
 @ActiveProfiles(profiles = "test")
@@ -41,12 +46,15 @@ public class BaseTest {
         RestAssuredMockMvc.enableLoggingOfRequestAndResponseIfValidationFails();
         RestAssuredMockMvc.mockMvc(mockMvc);
         truncate();
+        UserRole userRole = new UserRole(null, Role.SUPER_ADMIN);
         defaultUser = User
                 .builder()
                 .username(defaultUsername)
-                .password(defaultPassword)
+                .password(DigestUtils.md5DigestAsHex(defaultPassword.getBytes()))
                 .active(true)
+                .roles(Arrays.asList(userRole))
                 .build();
+        userRole.setUser(defaultUser);
         userRepository.save(defaultUser);
     }
 

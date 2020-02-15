@@ -2,9 +2,11 @@ package cc.lovecode.web;
 
 import cc.lovecode.BaseTest;
 import cc.lovecode.domain.entity.Problem;
+import cc.lovecode.domain.entity.TestCase;
 import cc.lovecode.dto.request.CreateProblemRequest;
 import org.junit.jupiter.api.Test;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
@@ -58,6 +60,7 @@ class ProblemControllerTest extends BaseTest {
 
     @Test
     void should_create_problem_successfully() {
+        List<TestCase> testCases = getMockTestCases();
         CreateProblemRequest request = CreateProblemRequest.builder()
                 .name("name")
                 .description("description")
@@ -68,6 +71,7 @@ class ProblemControllerTest extends BaseTest {
                 .timeLimit(1024L)
                 .sampleInput("sample input")
                 .sampleOutput("sample output")
+                .testCases(testCases)
                 .build();
 
         given()
@@ -88,10 +92,20 @@ class ProblemControllerTest extends BaseTest {
                 .expect(jsonPath("$.sampleOutput").value("sample output"));
     }
 
+    private List<TestCase> getMockTestCases() {
+        return Arrays.asList(TestCase.builder()
+                    .inputFileId("inputFileId")
+                    .outputFileId("outputFileId")
+                    .inputFilename("inputFilename")
+                    .outputFilename("outputFilename")
+                    .build());
+    }
+
     private void prepareProblems() {
         List<Problem> problems = IntStream.range(0, 3)
                 .mapToObj(i -> {
-                    return Problem.builder()
+                    List<TestCase> testCases = getMockTestCases();
+                    Problem problem = Problem.builder()
                             .name("title " + i)
                             .description("description")
                             .hint("hint")
@@ -102,7 +116,10 @@ class ProblemControllerTest extends BaseTest {
                             .timeLimit(1000L)
                             .memoryLimit(1024L)
                             .owner(defaultUser)
+                            .testCases(testCases)
                             .build();
+                    testCases.forEach(testCase -> testCase.setProblem(problem));
+                    return problem;
                 })
                 .collect(Collectors.toList());
         problemRepository.saveAll(problems);
