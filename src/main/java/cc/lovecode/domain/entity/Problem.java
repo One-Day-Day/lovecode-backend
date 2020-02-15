@@ -8,10 +8,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EntityListeners;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import java.util.List;
 
 @Data
 @Builder
@@ -36,8 +39,11 @@ public class Problem extends BaseEntity {
     @JoinColumn(name = "owner_id", nullable = false)
     private User owner;
 
+    @OneToMany(mappedBy = "problem", cascade = CascadeType.ALL)
+    private List<TestCase> testCases;
+
     public static Problem from(CreateProblemRequest request) {
-        return Problem.builder()
+        Problem problem = Problem.builder()
                 .name(request.getName())
                 .description(request.getDescription())
                 .hint(request.getHint())
@@ -47,6 +53,10 @@ public class Problem extends BaseEntity {
                 .sampleOutput(request.getSampleOutput())
                 .timeLimit(request.getTimeLimit())
                 .memoryLimit(request.getMemoryLimit())
+                .testCases(request.getTestCases())
                 .build();
+        request.getTestCases()
+                .forEach(testCase -> testCase.setProblem(problem));
+        return problem;
     }
 }

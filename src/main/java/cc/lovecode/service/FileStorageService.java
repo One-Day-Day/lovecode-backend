@@ -1,25 +1,18 @@
-package cc.lovecode.web;
+package cc.lovecode.service;
 
 import cc.lovecode.dto.response.FileUploadResponse;
-import cc.lovecode.enums.Role;
 import cc.lovecode.exception.FileUploadException;
-import cc.lovecode.jwt.JWTUser;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
-@RestController
-@RequestMapping("/upload")
-public class UploadController {
-    @PostMapping
-    public FileUploadResponse upload(@RequestParam MultipartFile file, JWTUser jwtUser) {
-        jwtUser.validateRoles(Role.SUPER_ADMIN);
+@Service
+public class FileStorageService {
+    public FileUploadResponse saveFile(@RequestParam MultipartFile file) {
         if (file.isEmpty()) {
             throw new FileUploadException("请不要上传空文件");
         }
@@ -39,5 +32,9 @@ public class UploadController {
         } catch (IOException ex) {
             throw new FileUploadException(ex.getMessage());
         }
+    }
+
+    public File getFile(String fileId) {
+        return new File("/tmp", fileId);
     }
 }

@@ -1,9 +1,12 @@
 package cc.lovecode.dto.request;
 
+import cc.lovecode.domain.entity.TestCase;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -19,4 +22,5 @@ public class CreateProblemRequest {
     private String sampleOutput;
     private Long timeLimit;
     private Long memoryLimit;
+    private List<TestCase> testCases;
 }
